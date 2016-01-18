@@ -44,21 +44,15 @@ VALUE_STRINGS = {
     @value = value
   end
 
-  def <=>(second)
-    first_suit = self.suit
-    second_suit = second.suit
-    first_value = self.value
-    second_value = second.value
-
-    if first_suit == second_suit && second_value == first_value
+  def <=>(other_card)
+    if value == other_card.value && suit == other_card.suit
       return 0
-    elsif first_value < second_value
-      return 1
-    elsif SUIT_STRINGS[first_suit] < SUIT_STRINGS[second_suit] && first_value == second_value
-      return 1
-    else
-      return -1
+    elsif value != other_card.value
+      Card.values.index(value) <=> Card.values.index(other_card.value)
+    elsif suit != other_card.suit
+      Card.suits.index(suit) <=> Card.suits.index(other_card.suit)
     end
+
 
   end
 
